@@ -1,5 +1,5 @@
 # Build the application
-FROM golang:1.19-buster AS back
+FROM docker.io/library/golang:1.19-buster AS back
 
 WORKDIR /go/src/app
 
@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o luc
 
 
 # Build the Svelte SPA
-FROM debian:buster AS front
+FROM docker.io/library/debian:buster AS front
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN npm run build
 
 
 # Image release
-FROM alpine:latest
+FROM docker.io/library/alpine:latest
 
 WORKDIR /root/
 EXPOSE 3000
