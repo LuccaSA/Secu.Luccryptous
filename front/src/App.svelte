@@ -145,7 +145,7 @@
     <TabLabel>XChaCha20Poly1305 Key</TabLabel>
     <TabContent>
       <label>
-        <h3>Ciphertext :</h3>
+        <h3>Ciphertext (To use with Lucca.Core.Cryptography):</h3>
         <input readonly value={fields.XChaCha20Poly1305} on:click={navigator.clipboard.writeText(fields.XChaCha20Poly1305)}>
       </label>
       <button on:click={genService(`XChaCha20Poly1305`)}>Regénérer</button>
