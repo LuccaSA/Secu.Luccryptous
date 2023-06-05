@@ -9,6 +9,7 @@
         "cryptfile": "",
         "pass": "",
         "uuid": "",
+        "XChaCha20Poly1305": "",
     }
 
     function debounce(func, wait) {
@@ -63,6 +64,9 @@
             break;
         case 4:
             genService("uuid").apply();
+            break;
+        case 5:
+            genService("XChaCha20Poly1305").apply();
             break;
         }
     }
@@ -135,6 +139,16 @@
         <input readonly value={fields.uuid} on:click={navigator.clipboard.writeText(fields.uuid)}>
       </label>
       <button on:click={genService(`uuid`)}>Regénérer</button>
+    </TabContent>
+  </Tab>
+  <Tab on:switch={switchTab}>
+    <TabLabel>XChaCha20Poly1305 Key</TabLabel>
+    <TabContent>
+      <label>
+        <h3>Ciphertext :</h3>
+        <input readonly value={fields.XChaCha20Poly1305} on:click={navigator.clipboard.writeText(fields.XChaCha20Poly1305)}>
+      </label>
+      <button on:click={genService(`XChaCha20Poly1305`)}>Regénérer</button>
     </TabContent>
   </Tab>
 </Tabs>
