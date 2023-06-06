@@ -285,9 +285,9 @@ func getXChaCha20Poly1305Key(c *gin.Context) {
 			"message": "Error at XChaCha20Poly1305 key generation",
 		})
 	} else {
-		// The key must be prefixed by `3:` to tell Lucca.Core.Cryptography that it's a XChaCha20Poly1305
-		var keyPrefix = []byte("3:")
-		secretReader := bytes.NewReader(append(keyPrefix, secret...))
+		// The key must be encoded in base64 and prefixed by `3:` to tell Lucca.Core.Cryptography that it's a XChaCha20Poly1305
+		var keyPrefix = "3:"
+		secretReader := strings.NewReader(keyPrefix + base64.StdEncoding.EncodeToString(secret))
 		processEncryption(c, secretReader)
 	}
 }
