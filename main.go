@@ -120,6 +120,7 @@ func main() {
 		})
 		api.GET("/uuid", getUUID)
 		api.GET("/pass", getPass)
+		api.GET("/XChaCha20Poly1305", getXChaCha20Poly1305Key )
 		api.POST("/crypt", msgCrypt)
 		api.POST("/cryptfile", fileCrypt)
 	}
@@ -210,6 +211,16 @@ func generateRandomString(n int) ([]byte, error) {
 	return buf, nil
 }
 
+/* Generate a random 32-byte key */
+func generateXChaCha20Poly1305Key() ([]byte, error) {
+	key := make([]byte, 32)
+	if _, err := rand.Read(key); err != nil {
+		return nil, err
+	}
+
+	return key, nil
+}
+
 /* Encrypt plaintext using AES 256 CFB */
 func encrypt(plaintext io.Reader) ([]byte, error) {
 	// Get a slice of bytes from plaintext
@@ -264,6 +275,19 @@ func getPass(c *gin.Context) {
 		})
 	} else {
 		secretReader := bytes.NewReader(secret)
+		processEncryption(c, secretReader)
+	}
+}
+
+func getXChaCha20Poly1305Key(c *gin.Context) {
+	if secret, err := generateXChaCha20Poly1305Key(); err != nil {
+		c.AbortWithStatusJSON(http.StatusServiceUnavailable, gin.H{
+			"message": "Error at XChaCha20Poly1305 key generation",
+		})
+	} else {
+		// The key must be encoded in base64 and prefixed by `3:` to tell Lucca.Core.Cryptography that it's a XChaCha20Poly1305
+		var keyPrefix = "3:"
+		secretReader := strings.NewReader(keyPrefix + base64.StdEncoding.EncodeToString(secret))
 		processEncryption(c, secretReader)
 	}
 }
