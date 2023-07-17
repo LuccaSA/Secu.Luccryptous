@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye@sha256:a648e10e02af129706b1fb89e1ac9694ae3db7f2b8439aa906321e68cc281bc0
 
 WORKDIR /app
 
