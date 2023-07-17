@@ -1,5 +1,5 @@
 # Build the application
-FROM docker.io/library/golang:1.19-buster AS back
+FROM docker.io/library/golang:1.20-buster@sha256:eb3f9ac805435c1b2c965d63ce460988e1000058e1f67881324746362baf9572 AS back
 
 WORKDIR /go/src/app
 
