@@ -1,5 +1,5 @@
 # Build the application
-FROM docker.io/library/golang:1.19-buster AS back
+FROM docker.io/library/golang:1.19-buster@sha256:46bab7f043402231a9ed12ef2a4b0a9d090e3abc005297de920160a76bc71da3 AS back
 
 WORKDIR /go/src/app
 
@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o luc
 
 
 # Build the Svelte SPA
-FROM docker.io/library/debian:buster AS front
+FROM docker.io/library/debian:buster@sha256:58ce6f1271ae1c8a2006ff7d3e54e9874d839f573d8009c20154ad0f2fb0a225 AS front
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN npm run build
 
 
 # Image release
-FROM docker.io/library/alpine:latest
+FROM docker.io/library/alpine:latest@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
 
 WORKDIR /root/
 EXPOSE 3000
