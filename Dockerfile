@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o luc
 
 
 # Build the Svelte SPA
-FROM docker.io/library/debian:buster AS front
+FROM docker.io/library/debian:bookworm@sha256:b8084b1a576c5504a031936e1132574f4ce1d6cc7130bbcc25a28f074539ae6b AS front
 
 WORKDIR /app
 
