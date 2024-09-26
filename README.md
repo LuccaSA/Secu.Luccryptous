@@ -31,7 +31,7 @@ systemctl enable --now luccryptous
 # Develop with Dockerfile.dev
 
 ``` shell
-podman build -t luccryptous:dev ./Dockerfile.dev
+podman build -t luccryptous:dev -f ./Dockerfile.dev .
 podman run -it --rm -m 1024m -p 5000:5000,35729:35729 -v ~/Projects/luccryptous/views/:/app/:Z --name luccryptous_dev luccryptous:dev
 ```
 

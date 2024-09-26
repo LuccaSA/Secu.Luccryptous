@@ -1,5 +1,5 @@
 # Build the application
-FROM docker.io/library/golang:1.19-buster AS back
+FROM docker.io/library/golang:1.23-bookworm AS back
 
 WORKDIR /go/src/app
 
@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o luc
 
 
 # Build the Svelte SPA
-FROM docker.io/library/debian:buster AS front
+FROM docker.io/library/debian:bookworm AS front
 
 WORKDIR /app
 
