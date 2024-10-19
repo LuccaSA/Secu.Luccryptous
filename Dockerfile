@@ -1,5 +1,5 @@
 # Build the application
-FROM docker.io/library/golang:1.23-bookworm AS back
+FROM docker.io/library/golang:1.23-bookworm@sha256:2341ddffd3eddb72e0aebab476222fbc24d4a507c4d490a51892ec861bdb71fc AS back
 
 WORKDIR /go/src/app
 
@@ -10,7 +10,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o luc
 
 
 # Build the Svelte SPA
-FROM docker.io/library/debian:bookworm AS front
+FROM docker.io/library/debian:bookworm@sha256:e11072c1614c08bf88b543fcfe09d75a0426d90896408e926454e88078274fcb AS front
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN npm run build
 
 
 # Image release
-FROM docker.io/library/alpine:latest
+FROM docker.io/library/alpine:latest@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
 
 WORKDIR /root/
 EXPOSE 3000
